@@ -1,7 +1,7 @@
 (function(){
 
 angular.module('app')
-.controller('listarController', ['$scope', 'pontosService', '$window', 'loginService',  function($scope, pontosService, $window, loginService){
+.controller('listarController', ['autosService', '$scope', 'pontosService', '$window', 'loginService',  function(autosService, $scope, pontosService, $window, loginService){
 	var vm = this;
 	vm.user = 'Agente: ' + loginService.usuario().name;
 	vm.matricula = 'Matrícula:  ' + loginService.usuario().matricula;
@@ -11,6 +11,7 @@ angular.module('app')
 	vm.mostrarLoading = false;
 	vm.listar = 'templates/sub_listar.html';
 	vm.mostrarLoading = false;
+	var previLista = [];
 	
 
 	
@@ -28,63 +29,47 @@ angular.module('app')
 		$window.localStorage.removeItem('token');
 	}
 
+	var promise = autosService.listarAutos();
 
-	vm.buscar = function(obj){
-		var pontos = 0;
-		vm.mostrarLoading = true;
-		vm.listaDePontos = [];
-		var promise = pontosService.listar(obj);
-
-
-		promise
+	promise
 		.then(function(data){
-			
-			data.data.forEach(function(value){
-				vm.listaDePontos.push(value)
-			});
+			data.data.forEach(function(value1){
+				value1.item.forEach(function(value2){
+					previLista.push({'nome': value2.nome, 'quantidade': value2.quantidade});
+				})
+			})
 
-			//var previsao = dataAtual.setDate(dataAtual.getDate() + dias); 
-
-			vm.listaDePontos.forEach(function(value){
-				var dt = new Date(value.data);
-				console.log(dt.setDate(dt.getDate() + 1));
-				if(dt.getMonth() < 10){
-					value['strDate'] = (dt.getDate()) + '/' + ('0' + (dt.getMonth() + 1)) + '/' + dt.getFullYear();
-				}else{
-					value['strDate'] = (dt.getDate()) + '/' + (dt.getMonth() + 1) + '/' + dt.getFullYear();
+			previLista.forEach(function(value){
+			var count = 0;
+			previLista.forEach(function(obj){
+				if(value.nome === obj.nome){
+					count = count + obj.quantidade;
+					value.total = count;
 				}
-
-				pontos = pontos + value.valor
-
 			});
 
-			vm.pontos = 'Total de pontos no período: ' + pontos;
-			vm.listaDePontos.sort(compare);
+			console.log(previLista);
 
-			vm.mostrarLoading = false;
-			 
+			vm.lista = []
+			var distinctLacre = []
+					previLista.forEach(function(value){
+						if(distinctLacre.indexOf(value.nome) === -1){
+							distinctLacre.push(value.nome);
+							vm.lista.push({nome: value.nome, quantidade: value.total});
+						}
+					});	
+
+			console.log(vm.lista);
+	})
+
+
 		})
 		.catch(function(err){
-			vm.mostrarLoading = false;
-			vm.showError = true;
-			vm.message = err.data.message;
-		})
-	}
-
-	vm.remover = function(value){
-		var item = {}
-		item['id'] = value;
-		var promise = pontosService.remover(item);
-
-		promise
-		.then(function(data){
-			vm.buscar(vm.solicitacao);
-		})
-		.catch(function(err){
-			$windo.alert(err);	
+			console.log(err);
 		})
 
-	}
+
+
 	
 }]);
 

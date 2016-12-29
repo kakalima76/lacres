@@ -18,19 +18,7 @@
 	    		
 				<center><span class="error" ng-show="vm.showError">{{vm.message}}</span></center>
 
-	    		<label class="fonteBranca">Data Inicial</label>
-	    		<input class="form-control" ng-model='vm.solicitacao.inicio' placeholder="data do inicio da pesquisa" datepicker>
-
-	    		<label class="fonteBranca">Data Final</label>
-	    		<input class="form-control" ng-model='vm.solicitacao.fim' placeholder="data do final da pesquisa" datepicker>
-
-	    		<div class="corpoProdutos fonteBranca">
-	    		<h4>{{vm.pontos}}</h4>
-	    		</div>
-
-		    	<div class="corpoProdutos fonteBranca">
-		    		<button type="button" class="btn btn-primary btn-lg btn-block"  ng-click="vm.buscar(vm.solicitacao)">Listar</button>
-		    	</div>
+	    		
 
 
 		    	<div class="corpoProdutos bordaBranca">
@@ -40,7 +28,7 @@
 		    		</center>
 		    	</div>
 
-	    		<div ng-repeat="ponto in vm.listaDePontos" ng-class-odd="'odd'" ng-class-even="'even'">
+	    		<div ng-repeat="item in vm.lista" ng-class-odd="'odd'" ng-class-even="'even'">
 	    			<div ng-include="vm.listar"></div>
 	    		</div>
 
