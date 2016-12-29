@@ -4,19 +4,19 @@
 	.service('autosService', ['$http', function($http){
 
 		var criarAuto = function(obj){
-			return $http.post('http://localhost:3010/autos', obj);
+			return $http.post('https://credenciais.herokuapp.com/autos', obj);
 		}
 
 		var criarItem = function(obj){
-			return $http.post('http://localhost:3010/autos/itens', obj);
+			return $http.post('https://credenciais.herokuapp.com/autos/itens', obj);
 		}
 
 		var criarLacre = function(obj){
-			return $http.post('http://localhost:3010/autos/lacres', obj);
+			return $http.post('https://credenciais.herokuapp.com/autos/lacres', obj);
 		}
 
 		var listarAutos = function(){
-			return $http.get('http://localhost:3010/autos');
+			return $http.get('https://credenciais.herokuapp.com/autos');
 		}
 
 		
