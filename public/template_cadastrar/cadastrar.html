@@ -1,0 +1,80 @@
+<widget-header titulo = 'CADASTRO DE ATIVIDADE'></widget-header>
+<div class="corpo">
+		<nav class="navbar navbar-inverse">
+  			<div class="container">
+		   		<ul class="nav nav-pills">
+		   			<li role="presentation" class="active"><a href="">Cadastar auto</a></li>
+		   			<li role="presentation"><a href="/#/imprimir">Imprimir etiqueta</a></li>
+		  			<li role="presentation"><a href="/#/listar">Listar estatísticas</a></li>
+		  			<li role="presentation"><a href="" class="usuario">{{vm.user}}</a></li>
+		  			<li role="presentation"><a href="" class="usuario">{{vm.matricula}}</a></li>
+		  			<li ng-click="vm.logoff()"><a href="/#/" class="logoff">logoff</a></li>
+		  		</ul>
+  			</div>
+		</nav>
+
+	<div class="corpoProdutos">
+		<center>
+		    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="vm.mostrarLoading">
+			</span>
+		</center>
+	</div>
+
+	<form name="myForm">
+		<div class="form-group">
+	    		
+				<center><span class="error" ng-show="vm.showError">{{vm.message}}</span></center>
+
+	    		
+				<div>
+					<label class="fonteBranca">Número do Auto</label>
+		    		<input type="text" class="form-control"  placeholder="documento" ng-model="vm.auto.numero" maxlength="6">
+		    	</div>
+
+		    	<div>
+					<label class="fonteBranca">Lacres utilizados</label>
+		    		<input type="text" class="form-control"  placeholder="liste os lacres separados por virgulas. Exemplo: 212134, 324567" ng-model="vm.auto.lacre" name="input" ng-pattern='0-9'>
+		    	</div>
+
+
+		    	<div class="corpoProdutos caixa">
+		    		<label class="fonteBranca">Produtos apreendidos</label>
+		  			<select ng-model='vm.apreendidos.nome' class="form-control" ng-options="item.nome for item in vm.opcoes track by item.nome"></select>
+
+		  			<label class="fonteBranca">Quantidade</label>
+		    		<input type="number" class="form-control"  placeholder="quantidade" ng-model="vm.apreendidos.quantidade">
+
+		    		<div class="corpoProdutos">
+		    		<button type="button" class="btn btn-info btn-lg btn-block"  ng-click="vm.inserir(vm.apreendidos)">Inserir</button>
+		    		</div>
+
+		    	</div>
+
+		    	<div class="corpoProdutos">
+					<table class="tabela">
+						<tr>
+							<td class="centralizado headerTabela">TIPO DE ITEM</td>
+							<td class="centralizado headerTabela">QUANTIDADE</td>
+						</tr>
+						<tr ng-repeat="campo in vm.arrayApreendidos | orderBy:'nome.none'" ng-class-odd="'odd'" ng-class-even="'even'">
+							<td class="centralizado">{{campo.nome.nome}}</td>
+							<td class="centralizado">{{campo.quantidade}}</td>
+						</tr>
+					</table>
+				</div>
+
+		    	
+
+		    	<!-- <div class="corpoProdutos">
+		    		<button type="button" class="btn btn-primary btn-lg btn-block"  ng-click="vm.salvar(vm.auto, vm.apreendidos)">Salvar</button>
+		    	</div> -->
+
+		    	<div class="corpoProdutos">
+		    		<button type="button" class="btn btn-primary btn-lg btn-block"  ng-click="vm.salvar(vm.auto, vm.apreendidos)">Salvar</button>
+		    	</div>
+
+			
+			</div>
+	</form>	
+		
+</div>

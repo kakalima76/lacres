@@ -1,0 +1,36 @@
+<ul class="list-group">
+
+	<li class="list-group-item">
+	<span class="badge" ng-bind="ponto.strDate"></span>
+	Data
+	</li>
+
+	<li class="list-group-item">
+	<span class="badge" ng-bind="ponto.item"></span>
+	Item
+	</li>
+
+	<li class="list-group-item">
+	<span class="badge" ng-bind="ponto.descricao"></span>
+	Descrição
+	</li>
+
+	<li class="list-group-item">
+	<span class="badge" ng-bind="ponto.documento"></span>
+	Documento
+	</li>
+
+	<li class="list-group-item">
+	<span class="badge" ng-bind="ponto.valor"></span>
+	Pontos
+	</li>
+
+	<li class="list-group-item" ng-click='vm.remover(ponto._id)'>
+	<span class="badge"></span>
+	
+	<a  ng-href="">Clicando aqui você apaga esse registro.</a>
+	</li>
+
+
+
+</ul>

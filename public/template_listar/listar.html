@@ -1,0 +1,52 @@
+<widget-header titulo = 'DESEMPENHO POR PERÍODO'></widget-header>
+<div class="corpo">
+		<nav class="navbar navbar-inverse">
+  			<div class="container">
+		   		<ul class="nav nav-pills">
+		   			<li role="presentation"><a href="/#/cadastrar">Cadastar auto</a></li>
+		   			<li role="presentation"><a href="/#/imprimir">Imprimir etiqueta</a></li>
+		  			<li role="presentation" class="active"><a href="">Listar estatísticas</a></li>
+		  			<li role="presentation"><a href="" class="usuario">{{vm.user}}</a></li>
+		  			<li role="presentation"><a href="" class="usuario">{{vm.matricula}}</a></li>
+		  			<li ng-click="vm.logoff()"><a href="/#/" class="logoff">logoff</a></li>
+		  		</ul>
+  			</div>
+		</nav>
+
+	<form name="myForm">
+		<div class="form-group">
+	    		
+				<center><span class="error" ng-show="vm.showError">{{vm.message}}</span></center>
+
+	    		<label class="fonteBranca">Data Inicial</label>
+	    		<input class="form-control" ng-model='vm.solicitacao.inicio' placeholder="data do inicio da pesquisa" datepicker>
+
+	    		<label class="fonteBranca">Data Final</label>
+	    		<input class="form-control" ng-model='vm.solicitacao.fim' placeholder="data do final da pesquisa" datepicker>
+
+	    		<div class="corpoProdutos fonteBranca">
+	    		<h4>{{vm.pontos}}</h4>
+	    		</div>
+
+		    	<div class="corpoProdutos fonteBranca">
+		    		<button type="button" class="btn btn-primary btn-lg btn-block"  ng-click="vm.buscar(vm.solicitacao)">Listar</button>
+		    	</div>
+
+
+		    	<div class="corpoProdutos bordaBranca">
+		    		<center>
+		    			<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="vm.mostrarLoading">
+		    			</span>
+		    		</center>
+		    	</div>
+
+	    		<div ng-repeat="ponto in vm.listaDePontos" ng-class-odd="'odd'" ng-class-even="'even'">
+	    			<div ng-include="vm.listar"></div>
+	    		</div>
+
+				</div>
+			
+			</div>
+	</form>	
+		
+</div>
